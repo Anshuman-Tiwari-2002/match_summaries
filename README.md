@@ -27,12 +27,23 @@ The public homepage displays recent matches with a clean, responsive UI and dark
 - **Next.js API routes** for CRUD operations.
 - **Prisma ORM** with **PostgreSQL (Neon)**.
 - Endpoints include:
-  - `POST /api/match/add` → Add match
-  - `GET /api/match/list` → List all matches
-  - `GET /api/match/get?id=...` → Get match by ID
-  - `PUT /api/match/update` → Update match
-  - `DELETE /api/match/delete` → Delete match
-  - `POST /api/match/generateSummary` → Generate summary with OpenAI
+- `POST /api/match/add`  
+  → Add a new match
+
+- `GET /api/match/list`  
+  → Get all matches
+
+- `GET /api/match/get?id=MATCH_ID`  
+  → Get a match by ID
+
+- `PUT /api/match/update`  
+  → Update a match
+
+- `DELETE /api/match/delete?id=MATCH_ID`  
+  → Delete a match
+
+- `POST /api/match/generateSummary`  
+  → Generate a match summary using OpenAI
 
 ---
 
@@ -63,26 +74,26 @@ src/
 
 ```
 
-
 ---
 
 ## ⚙️ Setup Instructions
 
 ### 1. Clone the repository
+
 ```bash
 git clone <your-repo-url>
 cd cricket-match-summaries
 ```
 
 ### 2. Install dependencies
+
 ```bash
 npm install
 ```
 
-
 ### 3. Configure environment variables
 
- Create a .env file in the project root:
+Create a .env file in the project root:
 
 ```
 DATABASE_URL="your-postgres-url"
@@ -92,20 +103,23 @@ NEXT_PUBLIC_CRICKETDATA_API_KEY="your-cricketdata-api-key"
 
 ### 4. Set up the database
 
- Run Prisma migrations:
-``` bash
+Run Prisma migrations:
+
+```bash
+npx prisma generate
 npx prisma migrate dev
 ```
 
 ### 5. Start the development server
-``` bash
+
+```bash
 npm run dev
 ```
 
-
 Now visit 👉 http://localhost:3000
 
- 🗄 Database Schema (Prisma)
+🗄 Database Schema (Prisma)
+
 ```
 model Match {
   id        String   @id @default(uuid())
@@ -116,4 +130,11 @@ model Match {
   summary   String
   createdAt DateTime @default(now())
 }
+
+model User {
+  id        String   @id @default(uuid())
+  email     String   @unique
+  isAdmin   Boolean  @default(false)
+}
+
 ```
