@@ -1,40 +1,119 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/pages/api-reference/create-next-app).
+# 🏏 Cricket Match Summaries Platform
 
-## Getting Started
+A **full-stack web application** to manage and showcase cricket match summaries.  
+Admins can add matches, edit or delete them, and even generate AI-powered summaries.  
+The public homepage displays recent matches with a clean, responsive UI and dark/light theme support.
 
-First, run the development server:
+---
+
+## ✨ Features
+
+### 🌐 Public Features
+
+- Browse recent cricket match summaries.
+- Beautiful **dark/light theme toggle**.
+- Responsive UI with animated match cards.
+
+### 🔐 Admin Features
+
+- **Authentication** via Firebase (Email/Password).
+- Add new matches with teams, scores, and summary.
+- Auto-generate summaries using **OpenAI GPT**.
+- Edit or delete existing matches.
+- Secure admin dashboard layout.
+
+### ⚡ Backend & Database
+
+- **Next.js API routes** for CRUD operations.
+- **Prisma ORM** with **PostgreSQL (Neon)**.
+- Endpoints include:
+  - `POST /api/match/add` → Add match
+  - `GET /api/match/list` → List all matches
+  - `GET /api/match/get?id=...` → Get match by ID
+  - `PUT /api/match/update` → Update match
+  - `DELETE /api/match/delete` → Delete match
+  - `POST /api/match/generateSummary` → Generate summary with OpenAI
+
+---
+
+## 🏗 Tech Stack
+
+- **Frontend**: [Next.js](https://nextjs.org), [Material UI](https://mui.com)
+- **Backend**: Next.js API Routes
+- **Database**: PostgreSQL (via [Prisma ORM](https://www.prisma.io))
+- **Authentication**: [Firebase Auth](https://firebase.google.com/docs/auth)
+- **AI Integration**: [OpenAI GPT](https://platform.openai.com/)
+- **Deployment**: [Vercel](https://vercel.com/)
+
+---
+
+## 📂 Project Structure
 
 ```bash
-npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
+src/
+├─ components/ # Reusable UI components (Navbar, MatchCard, etc.)
+├─ context/ # Theme context (dark/light mode)
+├─ lib/ # Firebase + Prisma setup
+├─ pages/
+│ ├─ index.tsx # Homepage
+│ ├─ auth/ # Login & Register pages
+│ ├─ admin/ # Admin dashboard (add, view, edit matches)
+│ └─ api/match/ # API routes (CRUD + AI summary)
+├─ styles/ # Global and module-based CSS
+
 ```
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
 
-You can start editing the page by modifying `pages/index.tsx`. The page auto-updates as you edit the file.
+---
 
-[API routes](https://nextjs.org/docs/pages/building-your-application/routing/api-routes) can be accessed on [http://localhost:3000/api/hello](http://localhost:3000/api/hello). This endpoint can be edited in `pages/api/hello.ts`.
+## ⚙️ Setup Instructions
 
-The `pages/api` directory is mapped to `/api/*`. Files in this directory are treated as [API routes](https://nextjs.org/docs/pages/building-your-application/routing/api-routes) instead of React pages.
+### 1. Clone the repository
+```bash
+git clone <your-repo-url>
+cd cricket-match-summaries
+```
 
-This project uses [`next/font`](https://nextjs.org/docs/pages/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+### 2. Install dependencies
+```bash
+npm install
+```
 
-## Learn More
 
-To learn more about Next.js, take a look at the following resources:
+### 3. Configure environment variables
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn-pages-router) - an interactive Next.js tutorial.
+ Create a .env file in the project root:
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
+```
+DATABASE_URL="your-postgres-url"
+OPENAI_API_KEY="your-openai-api-key"
+NEXT_PUBLIC_CRICKETDATA_API_KEY="your-cricketdata-api-key"
+```
 
-## Deploy on Vercel
+### 4. Set up the database
 
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
+ Run Prisma migrations:
+``` bash
+npx prisma migrate dev
+```
 
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/pages/building-your-application/deploying) for more details.
+### 5. Start the development server
+``` bash
+npm run dev
+```
+
+
+Now visit 👉 http://localhost:3000
+
+ 🗄 Database Schema (Prisma)
+```
+model Match {
+  id        String   @id @default(uuid())
+  teamA     String
+  teamB     String
+  scoreA    String
+  scoreB    String
+  summary   String
+  createdAt DateTime @default(now())
+}
+```

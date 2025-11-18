@@ -1,10 +1,10 @@
 .page {
-  --gray-rgb: 0, 0, 0;
+  --gray-rgb: 35, 33, 54;
   --gray-alpha-200: rgba(var(--gray-rgb), 0.08);
   --gray-alpha-100: rgba(var(--gray-rgb), 0.05);
 
-  --button-primary-hover: #383838;
-  --button-secondary-hover: #f2f2f2;
+  --button-primary-hover: #5b21b6;
+  --button-secondary-hover: #cffafe;
 
   display: grid;
   grid-template-rows: 20px 1fr 20px;
@@ -13,7 +13,13 @@
   min-height: 100svh;
   padding: 80px;
   gap: 64px;
-  font-family: var(--font-geist-sans);
+  font-family: var(--font-main);
+  background: linear-gradient(135deg, 
+    color-mix(in srgb, var(--background) 95%, var(--primary-color)) 0%,
+    var(--background) 100%
+  );
+  border-radius: var(--radius);
+  box-shadow: var(--shadow);
 }
 
 @media (prefers-color-scheme: dark) {
@@ -32,6 +38,11 @@
   flex-direction: column;
   gap: 32px;
   grid-row-start: 2;
+  background: color-mix(in srgb, var(--card-background) 97%, var(--primary-color));
+  backdrop-filter: blur(8px);
+  border-radius: var(--radius);
+  box-shadow: var(--shadow);
+  padding: 32px 24px;
 }
 
 .main ol {
@@ -63,7 +74,7 @@
 
 .ctas a {
   appearance: none;
-  border-radius: 128px;
+  border-radius: 32px;
   height: 48px;
   padding: 0 20px;
   border: none;
@@ -78,18 +89,28 @@
   justify-content: center;
   font-size: 16px;
   line-height: 20px;
-  font-weight: 500;
+  font-weight: 600;
+  background: var(--primary-color);
+  color: #fff;
+  box-shadow: 0 2px 8px rgba(37, 99, 235, 0.08);
 }
 
 a.primary {
-  background: var(--foreground);
-  color: var(--background);
-  gap: 8px;
+  background: var(--primary-color);
+  color: #fff;
 }
 
 a.secondary {
-  border-color: var(--gray-alpha-200);
-  min-width: 158px;
+  background: var(--secondary-color);
+  color: #fff;
+  border: none;
+}
+
+a.primary:hover,
+a.secondary:hover {
+  background: var(--button-primary-hover);
+  color: #fff;
+  box-shadow: 0 4px 16px rgba(37, 99, 235, 0.12);
 }
 
 .footer {

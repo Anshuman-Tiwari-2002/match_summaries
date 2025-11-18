@@ -1,42 +1,107 @@
 :root {
-  --background: #ffffff;
-  --foreground: #171717;
+  --background: #e0e7ff;         /* Indigo-100 */
+  --foreground: #1e293b;         /* Slate-800 */
+  --card-background: #f1f5f9;    /* Slate-100 */
+  --border-color: #c7d2fe;       /* Indigo-200 */
+  --primary-color: #8b5cf6;      /* Violet-500 */
+  --secondary-color: #10b981;    /* Emerald-500 */
+  --accent-color: #f59e0b;       /* Amber-500 */
+  --gray-rgb: 30, 41, 59;
+  --gray-alpha-200: rgba(var(--gray-rgb), 0.08);
+  --gray-alpha-100: rgba(var(--gray-rgb), 0.04);
+  --button-primary-hover: #7c3aed;
+  --button-secondary-hover: #059669;
+  --shadow: 0 8px 32px rgba(76, 29, 149, 0.15);
+  --radius: 16px;
+  --font-main: 'Inter', 'Segoe UI', Arial, sans-serif;
 }
 
+/* Dark mode overrides */
 @media (prefers-color-scheme: dark) {
   :root {
-    --background: #0a0a0a;
-    --foreground: #ededed;
+    --background: #0B1121;       /* Darker Navy */
+    --foreground: #f1f5f9;       /* Slate-100 */
+    --card-background: #1e1b4b;  /* Indigo-950 */
+    --border-color: #312e81;     /* Indigo-900 */
+    --primary-color: #a855f7;    /* Purple-500 */
+    --secondary-color: #06b6d4;  /* Cyan-500 */
+    --accent-color: #f59e0b;     /* Amber-500 */
+    --button-primary-hover: #9333ea;
+    --button-secondary-hover: #0891b2;
+    --shadow: 0 8px 32px rgba(0, 0, 0, 0.4);
   }
 }
 
-html,
 body {
   max-width: 100vw;
   overflow-x: hidden;
-}
-
-body {
+  background: linear-gradient(135deg, var(--background) 0%, color-mix(in srgb, var(--background) 85%, var(--primary-color)) 100%);
   color: var(--foreground);
-  background: var(--background);
-  font-family: Arial, Helvetica, sans-serif;
+  font-family: "Inter", Arial, Helvetica, sans-serif;
+  font-size: 16px;
+  line-height: 1.6;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
+  margin: 0;
+  padding: 0;
 }
 
 * {
   box-sizing: border-box;
-  padding: 0;
-  margin: 0;
 }
 
 a {
   color: inherit;
   text-decoration: none;
+  transition: color 0.2s ease;
 }
 
+a:hover {
+  color: var(--primary-color);
+}
+
+button {
+  font-family: inherit;
+}
+
+.card {
+  background: linear-gradient(145deg, 
+    var(--card-background) 0%,
+    color-mix(in srgb, var(--card-background) 97%, var(--primary-color)) 100%
+  );
+  backdrop-filter: blur(12px);
+  border: 1px solid var(--border-color);
+  border-radius: var(--radius);
+  box-shadow: var(--shadow);
+  padding: 1.5rem;
+  transition: box-shadow 0.2s, transform 0.2s;
+}
+
+/* Dark mode card hover effect */
 @media (prefers-color-scheme: dark) {
-  html {
-    color-scheme: dark;
+  .card:hover {
+    box-shadow: 0 8px 32px rgba(168, 85, 247, 0.2);
+    border-color: rgba(168, 85, 247, 0.4);
   }
+}
+
+.card:hover {
+  box-shadow: 0 8px 32px rgba(109, 40, 217, 0.12);
+  transform: translateY(-4px) scale(1.01);
+}
+
+img {
+  max-width: 100%;
+  height: auto;
+}
+
+input,
+textarea {
+  font-family: inherit;
+  font-size: 1rem;
+}
+
+button {
+  cursor: pointer;
+  transition: background 0.2s ease, color 0.2s ease;
 }
